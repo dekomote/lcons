@@ -1,6 +1,12 @@
 # lcons
 
+<p align="center">
+  <img src="img/favicon.svg" width="64" height="64" alt="lcons favicon">
+</p>
+
 A Linux icon browser for Adwaita and KDE Breeze icon themes.
+
+![Screenshot of lcons](img/screenshot.png)
 
 ## Why this exists
 
@@ -43,6 +49,8 @@ lcons/
   js/detail.js        Detail modal
   download-icons.sh   Downloads icon repos
   preprocess.py       Scans icons into JSON
+  img/favicon.svg     SVG favicon
+  img/screenshot.png  App screenshot
   data/               Generated JSON metadata
   icons/              Downloaded icon repos (gitignored)
 ```
