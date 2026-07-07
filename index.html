@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lcons - Linux Icon Browser</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <h1 class="logo">lcons<span class="cursor">_</span></h1>
+      <span class="subtitle">linux icon browser v1.0</span>
+    </div>
+    <div class="header-stats" id="stats">
+      <span class="stat">loading...</span>
+    </div>
+  </header>
+
+  <nav class="controls">
+    <div class="control-row">
+      <div class="search-box">
+        <span class="prompt">></span>
+        <input type="text" id="search" placeholder="search icons..." autocomplete="off" spellcheck="false">
+      </div>
+
+      <div class="theme-toggle" id="themeToggle">
+        <button class="theme-btn active" data-theme="all">ALL</button>
+        <button class="theme-btn" data-theme="breeze">BREEZE</button>
+        <button class="theme-btn" data-theme="adwaita">ADWAITA</button>
+        <button class="theme-btn" data-theme="common">COMMON</button>
+      </div>
+    </div>
+
+    <div class="filter-row">
+      <span class="filter-label">Category</span>
+      <div class="category-filter" id="categoryFilter">
+        <button class="cat-btn active" data-category="all">all</button>
+      </div>
+    </div>
+
+    <div class="filter-row">
+      <span class="filter-label">Size</span>
+      <div class="size-filter" id="sizeFilter">
+        <button class="size-btn active" data-size="all">all sizes</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main">
+    <div id="gridView" class="grid-container">
+      <div id="iconGrid" class="icon-grid"></div>
+      <div id="gridEmpty" class="empty-state" style="display:none;">
+        NO ICONS FOUND
+      </div>
+      <div id="gridLoading" class="loading-state">
+        SCANNING ICONS...
+      </div>
+    </div>
+  </main>
+
+  <div class="pagination" id="pagination"></div>
+
+  <!-- Templates for grid cards -->
+  <template id="tpl-icon-card">
+    <div class="icon-card">
+      <img loading="lazy" alt="">
+      <div class="icon-name"></div>
+    </div>
+  </template>
+
+  <template id="tpl-common-card">
+    <div class="icon-card-common">
+      <div class="icon-pair">
+        <img loading="lazy" alt="">
+        <div class="pair-divider"></div>
+        <img loading="lazy" alt="">
+      </div>
+      <div class="icon-pair-label"><span>A</span><span>B</span></div>
+      <div class="icon-name"></div>
+    </div>
+  </template>
+
+  <template id="tpl-page-btn">
+    <button class="page-btn"></button>
+  </template>
+
+  <div id="detailModal" class="modal" style="display:none;">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title" id="modalTitle"></span>
+        <button class="modal-close" id="modalClose">CLOSE</button>
+      </div>
+      <div class="modal-body">
+        <div class="icon-preview" id="modalPreview"></div>
+        <div class="icon-details" id="modalDetails"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Templates for detail modal -->
+  <template id="tpl-preview-item">
+    <div class="preview-item">
+      <img alt="" onerror="this.style.display='none'">
+      <div class="preview-label"></div>
+    </div>
+  </template>
+
+  <template id="tpl-info-section">
+    <div class="detail-section">
+      <h3>INFO</h3>
+      <div class="detail-row">
+        <span class="detail-label">Name</span>
+        <span class="detail-value" data-field="name"></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Category</span>
+        <span class="detail-value" data-field="category"></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Themes</span>
+        <span class="detail-value" data-field="themes"></span>
+      </div>
+    </div>
+  </template>
+
+  <template id="tpl-theme-section">
+    <div class="detail-section">
+      <h3 data-field="label"></h3>
+      <div class="detail-row">
+        <span class="detail-label">Category</span>
+        <span class="detail-value" data-field="category"></span>
+      </div>
+      <div class="size-grid" data-field="sizes"></div>
+    </div>
+  </template>
+
+  <template id="tpl-size-chip">
+    <div class="size-chip">
+      <div class="size-label"></div>
+      <div class="size-icons"></div>
+    </div>
+  </template>
+
+  <template id="tpl-paths-section">
+    <div class="detail-section">
+      <h3>PATHS</h3>
+      <div data-field="paths"></div>
+    </div>
+  </template>
+
+  <template id="tpl-path-row">
+    <div class="detail-row">
+      <span class="detail-value" style="max-width:100%;font-size:0.8rem;color:var(--text-dim);"></span>
+    </div>
+  </template>
+
+  <footer class="footer">
+    <span>lcons v1.0 // LGPL-3.0 // <a href="https://gitlab.gnome.org/GNOME/adwaita-icon-theme">Adwaita</a>: CC BY-SA 3.0 // <a href="https://invent.kde.org/frameworks/breeze-icons">Breeze</a>: LGPL-2.1</span>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
